@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\users\scaactk\documents\github\onlinejudgement\lgoj\calculator\calculator\source.cpp(41): warning C4715: 'pop': not all control paths return a value
+  calculator.vcxproj -> C:\Users\Scaactk\Documents\GitHub\OnlineJudgement\LGOJ\calculator\Debug\calculator.exe
+  calculator.vcxproj -> C:\Users\Scaactk\Documents\GitHub\OnlineJudgement\LGOJ\calculator\Debug\calculator.pdb (Full PDB)
