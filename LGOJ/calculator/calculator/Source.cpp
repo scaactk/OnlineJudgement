@@ -127,7 +127,7 @@ int main()
 		}
 		ch = getchar();
 	}
-	cout << get_top(Num);
+	cout << get_top(Num) << endl;
+	system("pause");
 	return 0;
-	//system("pause");
 }
