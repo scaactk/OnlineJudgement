@@ -1,3 +1,4 @@
+本文采用Markdown格式，原文地址https://github.com/scaactk/OnlineJudgement/tree/master/LGOJ/calculator/calculator
 # 数据结构经典问题：带括号的计算器
 ---
 问题描述:
@@ -187,4 +188,5 @@ int main()
 }
 ```
 > Writen by Scaactk
+
 > Guided by Ms Dong
