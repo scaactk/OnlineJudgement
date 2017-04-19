@@ -4,3 +4,11 @@ LGOJ/二叉树/ipch/二叉树-477a9d7a/二叉树-5a133472.ipch
 LGOJ/二叉树/二叉树.VC.db
 *.vcxproj
 LGOJ/二叉树/二叉树/二叉树.vcxproj.filters
+*.db
+LGOJ/二叉树的遍历/Debug/二叉树的遍历.ilk
+*.pdb
+LGOJ/二叉树的遍历/二叉树的遍历/Debug/vc140.idb
+*.tlog
+LGOJ/二叉树的遍历/二叉树的遍历/Debug/二叉树的遍历.log
+*.filters
+LGOJ/二叉树的遍历/二叉树的遍历/Debug/Source.obj
