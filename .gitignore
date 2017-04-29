@@ -12,3 +12,8 @@ LGOJ/二叉树的遍历/二叉树的遍历/Debug/vc140.idb
 LGOJ/二叉树的遍历/二叉树的遍历/Debug/二叉树的遍历.log
 *.filters
 LGOJ/二叉树的遍历/二叉树的遍历/Debug/Source.obj
+*.exe
+LGOJ/二叉树的高度和宽度/Debug/二叉树的高度和宽度.ilk
+*.obj
+LGOJ/二叉树的高度和宽度/二叉树的高度和宽度/Debug/vc140.idb
+*.log
