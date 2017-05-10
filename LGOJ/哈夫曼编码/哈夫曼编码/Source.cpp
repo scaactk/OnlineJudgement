@@ -8,92 +8,88 @@ struct Node {
 	int parent;
 	int left_child;
 	int right_child;
+	char data;
 };
 struct Hcode {
-	char code[10];
+	char code[50];//存储哈夫曼编码 
 	int start;
 };
-void HufTree(Node ht[], int n)
+void create_ht(Node ht[], int n)
 {
-	int M = n;
-	int N = M * 2 - 1;
-	int m1, m2;//最小的两个权值
-	int x1, x2;//权值最小的两个节点在数组中的序号
+	int min1, min2;
+	int left_node, right_node;
 
-			   //初始化节点
-	for (int i = 0; i < N; i++) {
+	//初始化节点
+	for (int i = 0; i < 2 * n - 1; i++) {
 		ht[i].weight = 0;
 		ht[i].parent = -1;
 		ht[i].left_child = -1;
 		ht[i].right_child = -1;
 	}
 
-	//输入每个结点的权值
-	for (int i = 0; i < M; i++) {
-		cin >> ht[i].weight;
-	}
-
-	//建立Huffman_Tree
-	//合并n-1次
-	for (int i = 0; i < M - 1; i++) {
-		m1 = m2 = Max_weight;//寻找两个权值最小的子树
-		x1 = x2 = 0;//保存权值最小的子树的下标
-
-					//寻找0 ~ k+i中的两个最小权值
-		for (int j = 0; j < M + i; j++) {
-
-			//如果比最小的还要小的话
-			if (ht[j].weight < m1 && ht[j].parent == -1)
-			{
-				//将当前的标记为最小，前一个标记为次小
-				m2 = m1;
-				x2 = x1;
-				m1 = ht[j].weight;
-				x1 = j;
-			}
-
-			//大于最小值，但小于次小值
-			else if (ht[j].weight < m2 && ht[j].parent == -1)
-			{
-				m2 = ht[j].weight;
-				x2 = j;
+	for (int i = n; i<2 * n - 1; i++)
+	{
+		min1 = min2 = Max_weight;
+		left_node = right_node = -1;//最小权重两个节点的位置
+		for (int k = 0; k<i - 1; k++)
+		{
+			if (ht[k].parent == -1) {
+				if (ht[k].weight < min1) {
+					min2 = min1;
+					right_node = left_node;
+					left_node = k;
+					min1 = ht[k].weight;
+				}
+				else if (ht[k].weight < min2) {
+					min2 = ht[k].weight;
+					right_node = k;
+				}
 			}
 		}
+		ht[left_node].parent = i;
+		ht[right_node].parent = i;
+		ht[i].weight = ht[left_node].weight + ht[right_node].weight;
+		ht[i].left_child = left_node;
+		ht[i].right_child = right_node;
+	}
+}
 
-		//将之前找到的合并成子树
-		ht[x1].parent = M + i;
-		ht[x2].parent = M + i;
-		ht[M + i].weight = ht[x1].weight + ht[x2].weight;
-		ht[M + i].left_child = x1;
-		ht[M + i].right_child = x2;
-	}
-}
-void show(Node ht[], int n)
+void create_hcode(Node ht[], Hcode hcode[], int n)//将每个字符转换为相应的huffman编码存入数组中 
 {
-	for (int i = n; i < 2 * n - 1; i++) {
-		cout << ht[i].weight << " " << ht[i].parent << " " << ht[i].left_child << " " << ht[i].right_child << endl;
-	}
-}
-void create_hcode(Node ht[], Hcode hcode[], int n)
-{
-	int i, f, c;
-	Hcode hc;
+	Hcode hc;//临时的结构体变量 
 	for (int i = 0; i < n; i++)
 	{
 		hc.start = n;
-		c = i;
-		f = ht[i].parent;
-		while (f = -1) //循环直到树根
+		int c = i;
+		int f = ht[i].parent;
+		while (f != -1) //循环直到树根
 		{
-			if (ht[f].left_child == c) {//处理左孩子结点
+			if (ht[f].left_child == c) {//判断是否为父节点的左孩子节点 
 				hc.code[hc.start--] = '0';
+				cout << "start  " << hc.start;
 			}
 			else {
 				hc.code[hc.start--] = '1';
+				cout << "start  " << hc.start;
 			}
+			c = f;
+			f = ht[f].parent;
 		}
 		hc.start++;//start指向huffman编码最开始的字符
-		hcode[i] = hc;
+		hcode[i] = hc;//将当前字符的huffman编码存入编码数组中 
+		//cout << hcode[i].code << "dididi";
+	}
+}
+void print_hcode(Node ht[], Hcode hcode[], int n)
+{
+	for (int i = 0; i<n; i++)
+	{
+		int j = 0;
+		for (int k = hcode[i].start; k <= n; k++)
+		{
+			cout << hcode[i].code[k] << endl;
+			j++;
+		}
 	}
 }
 int main()
@@ -106,9 +102,17 @@ int main()
 		if (T == 0) {
 			int n;
 			cin >> n;
-			Node list[100];
-			HufTree(list, n);
-			//show(list, n);
+			Node ht[100];
+			Hcode hcode[50];
+			for (int i = 0; i<n; i++) {
+				cin >> ht[i].data;
+			}
+			for (int i = 0; i<n; i++) {
+				cin >> ht[i].weight;
+			}
+			create_ht(ht, n);
+			create_hcode(ht, hcode, n);
+			print_hcode(ht, hcode, n);
 		}
 		else if (T == 1) {
 			char arr1[100];
