@@ -21,17 +21,16 @@ void create_ht(Node ht[], int n)
 
 	//初始化节点
 	for (int i = 0; i < 2 * n - 1; i++) {
-		ht[i].weight = 0;
 		ht[i].parent = -1;
 		ht[i].left_child = -1;
 		ht[i].right_child = -1;
 	}
 
-	for (int i = n; i<2 * n - 1; i++)
+	for (int i = n; i < 2 * n - 1; i++)
 	{
 		min1 = min2 = Max_weight;
 		left_node = right_node = -1;//最小权重两个节点的位置
-		for (int k = 0; k<i - 1; k++)
+		for (int k = 0; k < i; k++)
 		{
 			if (ht[k].parent == -1) {
 				if (ht[k].weight < min1) {
@@ -46,11 +45,13 @@ void create_ht(Node ht[], int n)
 				}
 			}
 		}
+		//cout << "当前选中" << ht[left_node].data << "&" << ht[right_node].data << endl;
 		ht[left_node].parent = i;
 		ht[right_node].parent = i;
 		ht[i].weight = ht[left_node].weight + ht[right_node].weight;
 		ht[i].left_child = left_node;
 		ht[i].right_child = right_node;
+		//cout << "生成新节点权重：" << ht[i].weight << endl;
 	}
 }
 
@@ -66,18 +67,22 @@ void create_hcode(Node ht[], Hcode hcode[], int n)//将每个字符转换为相�
 		{
 			if (ht[f].left_child == c) {//判断是否为父节点的左孩子节点 
 				hc.code[hc.start--] = '0';
-				cout << "start  " << hc.start;
 			}
 			else {
 				hc.code[hc.start--] = '1';
-				cout << "start  " << hc.start;
 			}
 			c = f;
 			f = ht[f].parent;
 		}
 		hc.start++;//start指向huffman编码最开始的字符
 		hcode[i] = hc;//将当前字符的huffman编码存入编码数组中 
-		//cout << hcode[i].code << "dididi";
+	}
+}
+void encoding(Hcode hcode[], char arr[])
+{
+	for (int i = 0; arr[i] != '\0'; i++)
+	{
+		for(int )
 	}
 }
 void print_hcode(Node ht[], Hcode hcode[], int n)
@@ -85,11 +90,13 @@ void print_hcode(Node ht[], Hcode hcode[], int n)
 	for (int i = 0; i<n; i++)
 	{
 		int j = 0;
+		//cout << ht[i].data << " ";
 		for (int k = hcode[i].start; k <= n; k++)
 		{
-			cout << hcode[i].code[k] << endl;
+			cout << hcode[i].code[k];
 			j++;
 		}
+		cout << endl;
 	}
 }
 int main()
@@ -99,11 +106,11 @@ int main()
 	for (int i = 0; i < Q; i++) {
 		int T;
 		cin >> T;
+		Node ht[100];
+		Hcode hcode[50];
 		if (T == 0) {
 			int n;
 			cin >> n;
-			Node ht[100];
-			Hcode hcode[50];
 			for (int i = 0; i<n; i++) {
 				cin >> ht[i].data;
 			}
@@ -112,12 +119,12 @@ int main()
 			}
 			create_ht(ht, n);
 			create_hcode(ht, hcode, n);
-			print_hcode(ht, hcode, n);
+			//print_hcode(ht, hcode, n);
 		}
 		else if (T == 1) {
-			char arr1[100];
+			char arr1[100] = { '\0' };
 			gets_s(arr1);
-			//encoding(arr1);
+			encoding(hcode, arr1);
 		}
 		else if (T == 2) {
 			char arr2[100];
