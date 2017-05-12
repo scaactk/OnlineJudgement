@@ -5,18 +5,18 @@
 using namespace std;
 #define Max_weight 32767
 
-struct Node {
+struct Node {//原节点结构体
 	int weight;
 	int parent;
 	int left_child;
 	int right_child;
 	char data;
 };
-struct Hcode {
+struct Hcode {//编码结构体
 	char code[50];//存储哈夫曼编码 
 	int start;
 };
-void create_ht(Node ht[], int n)
+void create_ht(Node ht[], int n)//根据原节点的权值构造huffman树
 {
 	int min1, min2;
 	int left_node, right_node;
@@ -57,7 +57,7 @@ void create_ht(Node ht[], int n)
 	}
 }
 
-void create_hcode(Node ht[], Hcode hcode[], int n)//将每个字符转换为相应的huffman编码存入数组中 
+void create_hcode(Node ht[], Hcode hcode[], int n)//将每个字符转换为相应的huffman编码存入编码数组中 
 {
 	Hcode hc;//临时的结构体变量 
 	for (int i = 0; i < n; i++)
@@ -65,6 +65,8 @@ void create_hcode(Node ht[], Hcode hcode[], int n)//将每个字符转换为相�
 		hc.start = n;
 		int c = i;
 		int f = ht[i].parent;
+		//由于这里是从叶子节点往根节点走，而实际的Huffman编码为从根节点到叶子结点
+		//所以下面的start为从n开始递减，输出是按照start到n正序输出
 		while (f != -1) //循环直到树根
 		{
 			if (ht[f].left_child == c) {//判断是否为父节点的左孩子节点 
@@ -99,6 +101,7 @@ void encoding(Node ht[], Hcode hcode[], char* arr, int n)//对传入字符串进
 	}
 	cout << endl;
 }
+
 void decoding(Node ht[], char* arr, int n)//对传入编码进行解码
 {
 	int i = 0;
@@ -123,7 +126,8 @@ void decoding(Node ht[], char* arr, int n)//对传入编码进行解码
 	}
 	cout << endl;
 }
-void print_hcode(Hcode hcode[], int n)
+
+void print_hcode(Hcode hcode[], int n)//测试用，用于检测是否正常将原节点进行编码
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -136,6 +140,7 @@ void print_hcode(Hcode hcode[], int n)
 		cout << endl;
 	}
 }
+
 int main()
 {
 	int Q;//操作次数
