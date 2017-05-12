@@ -1,5 +1,7 @@
 ﻿#include<iostream>
 #include<cstdio>
+#include<cstring>
+#include<string.h>
 using namespace std;
 #define Max_weight 32767
 
@@ -78,19 +80,54 @@ void create_hcode(Node ht[], Hcode hcode[], int n)//将每个字符转换为相�
 		hcode[i] = hc;//将当前字符的huffman编码存入编码数组中 
 	}
 }
-void encoding(Hcode hcode[], char arr[])
+void encoding(Node ht[], Hcode hcode[], char* arr, int n)//对传入字符串进行编码
 {
-	for (int i = 0; arr[i] != '\0'; i++)
+	Node temp[100];
+	for (int i = 0; i<strlen(arr); i++)
 	{
-		for(int )
+		//cout << arr[i] << "编码为" << endl;
+		for (int j = 0; j < n; j++)
+		{
+			if (ht[j].data == arr[i])
+			{
+				for (int k = hcode[j].start; k <= n; k++)
+				{
+					cout << hcode[j].code[k];
+				}
+			}
+		}
 	}
+	cout << endl;
 }
-void print_hcode(Node ht[], Hcode hcode[], int n)
+void decoding(Node ht[], char* arr, int n)//对传入编码进行解码
 {
-	for (int i = 0; i<n; i++)
+	int i = 0;
+	while (i < strlen(arr))
+	{
+		//cout << "ddd" << strlen(arr) << endl;
+		int temp = 2 * n - 2;
+		//cout << "aaa" << ht[temp].left_child << endl;
+		while ((ht[temp].left_child != -1) && (ht[temp].right_child != -1))//判断哈夫曼树是否走到了叶子节点
+		{
+			if (arr[i] == '0')
+			{
+				temp = ht[temp].left_child;
+			}
+			else if (arr[i] == '1')
+			{
+				temp = ht[temp].right_child;
+			}
+			i++;
+		}
+		cout << ht[temp].data;
+	}
+	cout << endl;
+}
+void print_hcode(Hcode hcode[], int n)
+{
+	for (int i = 0; i < n; i++)
 	{
 		int j = 0;
-		//cout << ht[i].data << " ";
 		for (int k = hcode[i].start; k <= n; k++)
 		{
 			cout << hcode[i].code[k];
@@ -103,13 +140,13 @@ int main()
 {
 	int Q;//操作次数
 	cin >> Q;
+	Node ht[200];
+	Hcode hcode[100];
+	int n;
 	for (int i = 0; i < Q; i++) {
 		int T;
 		cin >> T;
-		Node ht[100];
-		Hcode hcode[50];
 		if (T == 0) {
-			int n;
 			cin >> n;
 			for (int i = 0; i<n; i++) {
 				cin >> ht[i].data;
@@ -119,18 +156,22 @@ int main()
 			}
 			create_ht(ht, n);
 			create_hcode(ht, hcode, n);
-			//print_hcode(ht, hcode, n);
+			//print_hcode(hcode, n);
 		}
 		else if (T == 1) {
-			char arr1[100] = { '\0' };
-			gets_s(arr1);
-			encoding(hcode, arr1);
+			char arr1[200];
+			getchar();
+			gets_s(arr1);//由于这里是gets，在测试的时候要注意输完一行数据再回车
+			encoding(ht, hcode, arr1, n);
 		}
 		else if (T == 2) {
-			char arr2[100];
+			char arr2[200];
+			getchar();
 			gets_s(arr2);
-			//decoding(arr2);
+			//cout << arr2 << endl;
+			decoding(ht, arr2, n);
 		}
 	}
 	system("pause");
+	return 0;
 }
