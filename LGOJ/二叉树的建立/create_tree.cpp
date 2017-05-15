@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 struct node{
 	struct node* left_child;
@@ -38,7 +38,7 @@ node* create_BiTree2(node* T)
 }
 void preorder_traversal(node* T)
 {
-	//µİ¹é·¨ÏÈĞò±éÀú¶ş²æÊ÷
+	//é€’å½’æ³•å…ˆåºéå†äºŒå‰æ ‘
 	if (T != NULL) {
 		cout << T->data;
 		preorder_traversal(T->left_child);
