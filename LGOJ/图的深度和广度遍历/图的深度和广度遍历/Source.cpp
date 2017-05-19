@@ -134,7 +134,7 @@ void DFS_traversal(MGraph* G)
 		}
 	}
 
-	for (int i = 0; i < G->numVertexes-1; i++)
+	for (int i = 0; i < G->numVertexes-1; i++)//用于规范输出格式
 	{
 		int output;
 		dequeue(&temp1, &output);
@@ -183,7 +183,8 @@ void BFS_traversal(MGraph* G)
 			}
 		}
 	}
-	for (int i = 0; i < G->numVertexes - 1; i++)
+
+	for (int i = 0; i < G->numVertexes - 1; i++)//用于规范输出格式
 	{
 		int output;
 		dequeue(&temp2, &output);
