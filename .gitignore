@@ -10,3 +10,7 @@
 *.idb
 *.ilk
 *.suo
+*.ipch
+*.filters
+*.vcxproj
+*.sln
